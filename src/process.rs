@@ -372,6 +372,12 @@ impl Cmd {
         self.inner.as_std().get_current_dir()
     }
 
+    /// Forwards to [`tokio::process::Command::process_group`][]
+    pub fn process_group(&mut self, pgroup: i32) -> &mut Self {
+        self.inner.process_group(pgroup);
+        self
+    }
+
     pub fn remove_git_env(&mut self) -> &mut Self {
         for (key, _) in crate::git::GIT_ENV_TO_REMOVE.iter() {
             self.inner.env_remove(key);

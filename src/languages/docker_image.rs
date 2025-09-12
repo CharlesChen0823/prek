@@ -38,6 +38,7 @@ impl LanguageImpl for DockerImage {
             let mut cmd = Docker::docker_run_cmd(hook.work_dir())?;
             let mut output = cmd
                 .current_dir(hook.work_dir())
+                .process_group(0)
                 .args(&entry[..])
                 .args(&hook.args)
                 .args(batch)

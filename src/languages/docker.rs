@@ -237,6 +237,7 @@ impl LanguageImpl for Docker {
             let mut cmd = Docker::docker_run_cmd(hook.work_dir())?;
             let mut output = cmd
                 .current_dir(hook.work_dir())
+                .process_group(0)
                 .arg("--entrypoint")
                 .arg(&entry[0])
                 .arg(&docker_tag)

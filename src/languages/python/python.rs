@@ -154,6 +154,7 @@ impl LanguageImpl for Python {
         let run = async move |batch: &[&Path]| {
             let mut output = Cmd::new(&entry[0], "python hook")
                 .current_dir(hook.work_dir())
+                .process_group(0)
                 .args(&entry[1..])
                 .env("VIRTUAL_ENV", env_dir)
                 .env("PATH", &new_path)

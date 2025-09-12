@@ -38,6 +38,7 @@ impl LanguageImpl for System {
         let run = async move |batch: &[&Path]| {
             let mut output = Cmd::new(&entry[0], "run system command")
                 .current_dir(hook.work_dir())
+                .process_group(0)
                 .args(&entry[1..])
                 .args(&hook.args)
                 .args(batch)
