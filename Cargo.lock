@@ -1848,9 +1848,9 @@ dependencies = [
  "path-clean",
  "pprof",
  "predicates",
- "prek-consts",
- "prek-pty",
- "prek-yaml",
+ "prek_consts",
+ "prek_pty",
+ "prek_yaml",
  "pretty_assertions",
  "quick-xml 0.38.3",
  "rand",
@@ -1882,14 +1882,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "prek-consts"
+name = "prek_consts"
 version = "0.0.1"
 dependencies = [
  "tracing",
 ]
 
 [[package]]
-name = "prek-pty"
+name = "prek_pty"
 version = "0.0.1"
 dependencies = [
  "rustix",
@@ -1897,7 +1897,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "prek-yaml"
+name = "prek_yaml"
 version = "0.0.1"
 dependencies = [
  "serde_yaml",
@@ -2719,8 +2719,7 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 [[package]]
 name = "tokio"
 version = "1.48.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ff360e02eab121e0bc37a2d3b4d4dc622e6eda3a8e5253d5435ecf5bd4c68408"
+source = "git+https://github.com/CharlesChen0823/tokio.git?branch=debug#e7b276e3d0b261c4621bc41fa147024e335dfca6"
 dependencies = [
  "bytes",
  "libc",
@@ -2735,8 +2734,7 @@ dependencies = [
 [[package]]
 name = "tokio-macros"
 version = "2.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "af407857209536a95c8e56f8231ef2c2e2aff839b22e07a1ffcbc617e9db9fa5"
+source = "git+https://github.com/CharlesChen0823/tokio.git?branch=debug#e7b276e3d0b261c4621bc41fa147024e335dfca6"
 dependencies = [
  "proc-macro2",
  "quote",

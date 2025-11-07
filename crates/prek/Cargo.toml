@@ -1,29 +1,19 @@
-[workspace]
-members = ["crates/*"]
-
-[workspace.package]
-edition = "2024"
-repository = "https://github.com/j178/prek"
-homepage = "https://prek.j178.dev/"
-license = "MIT"
-
-[workspace.dependencies]
-prek-consts = { path = "crates/prek-consts" }
-serde_yaml = { version = "0.9.34" }
-thiserror = { version = "2.0.11" }
-tracing = { version = "0.1.40" }
-
 [package]
 name = "prek"
 version = "0.2.13"
 authors = ["j178 <hi@j178.dev>"]
 description = "Better `pre-commit`, re-engineered in Rust"
-repository = { workspace = true }
-homepage = { workspace = true }
-edition = { workspace = true }
-license = { workspace = true }
+edition = "2024"
+repository = "https://github.com/j178/prek"
+homepage = "https://prek.j178.dev/"
+license = "MIT"
 
-default-run = "prek"
+[lints]
+workspace = true
+
+[[bin]]
+name = "prek"
+path = "src/main.rs"
 
 [features]
 default = ["docker"]
@@ -37,8 +27,15 @@ profiler-flamegraph = ["pprof/flamegraph"]
 docker = []
 
 [dependencies]
-anstream = { version = "0.6.15" }
-anyhow = { version = "1.0.86" }
+anstream.workspace = true
+anyhow.workspace = true
+prek_consts = { workspace = true }
+thiserror.workspace = true
+tracing.workspace = true
+serde_yaml.workspace = true
+tokio = { workspace = true, features = ["fs", "process", "rt", "sync", "macros"] }
+tokio-util.workspace = true
+
 astral-tokio-tar = { version = "0.5.1" }
 async-compression = { version = "0.4.18", features = ["gzip", "xz", "tokio"] }
 async_zip = { git = "https://github.com/astral-sh/rs-async-zip", rev = "c909fda63fcafe4af496a07bfda28a5aae97e58d", features = ["deflate", "tokio"] }
@@ -77,31 +74,23 @@ serde = { version = "1.0.210", features = ["derive"] }
 serde_ignored = { version = "0.1.12" }
 serde_json = { version = "1.0.132", features = ["unbounded_depth"] }
 serde_stacker = { version = "0.1.12" }
-serde_yaml = { workspace = true }
 shlex = { version = "1.3.0" }
 smallvec = { version = "1.15.1" }
 target-lexicon = { version = "0.13.0" }
 tempfile = { version = "3.13.0" }
 textwrap = { version = "0.16.1" }
-thiserror = { workspace = true }
-tokio = { version = "1.47.1", features = ["fs", "process", "rt", "sync", "macros"] }
-tokio-util = { version = "0.7.13" }
 toml = { version = "0.9.5", default-features = false, features = ["fast_hash", "parse", "preserve_order", "serde"] }
-tracing = { workspace = true }
 tracing-subscriber = { version = "0.3.20", features = ["env-filter"] }
 unicode-width = { version = "0.2.0" }
 url = { version = "2.5.2", features = ["serde"] }
 which = { version = "8.0.0" }
-prek-consts = { workspace = true }
-prek-yaml = { path = "crates/prek-yaml" }
+prek_yaml.workspace = true
 
-[patch.crates-io]
-tokio = {  git = "https://github.com/CharlesChen0823/tokio.git", branch = "debug" }
 
 [target.'cfg(unix)'.dependencies]
 libc = { version = "0.2.164" }
 pprof = { version = "0.15.0", optional = true }
-prek-pty = { path = "crates/prek-pty" }
+prek_pty.workspace = true
 
 [build-dependencies]
 fs-err = { version = "3.1.0" }
@@ -132,61 +121,3 @@ pkg-url = "{ repo }/releases/download/v{ version }/{ name }-{ target }.zip"
 
 [package.metadata.cargo-shear]
 ignored = ["liblzma"]
-
-[lints]
-workspace = true
-
-[workspace.lints.rust]
-dead_code = "allow"
-
-[workspace.lints.clippy]
-pedantic = { level = "warn", priority = -2 }
-# Allowed pedantic lints
-char_lit_as_u8 = "allow"
-collapsible_else_if = "allow"
-collapsible_if = "allow"
-implicit_hasher = "allow"
-map_unwrap_or = "allow"
-match_same_arms = "allow"
-missing_errors_doc = "allow"
-missing_panics_doc = "allow"
-module_name_repetitions = "allow"
-must_use_candidate = "allow"
-similar_names = "allow"
-too_many_arguments = "allow"
-too_many_lines = "allow"
-used_underscore_binding = "allow"
-# Disallowed restriction lints
-print_stdout = "warn"
-print_stderr = "warn"
-dbg_macro = "warn"
-empty_drop = "warn"
-empty_structs_with_brackets = "warn"
-exit = "warn"
-get_unwrap = "warn"
-rc_buffer = "warn"
-rc_mutex = "warn"
-rest_pat_in_fully_bound_structs = "warn"
-
-[workspace.metadata.typos.default.extend-words]
-edn = "edn"
-styl = "styl"
-jod = "jod"
-
-[profile.profiling]
-inherits = "release"
-strip = false
-debug = "full"
-lto = false
-codegen-units = 16
-
-[profile.release]
-# Enable Full LTO for the best optimizations
-lto = "fat"
-# Reduce codegen units to 1 for better optimizations
-codegen-units = 1
-strip = true
-
-# The profile that 'cargo dist' will build with
-[profile.dist]
-inherits = "release"
